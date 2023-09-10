@@ -1,0 +1,13 @@
+body {
+    background-color: beige;
+    text-align: center;
+}
+
+.logo {
+    padding-bottom: 4rem;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+}

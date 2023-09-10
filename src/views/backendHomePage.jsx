@@ -1,11 +1,21 @@
 import React from 'react';
+import DefaultHTML from './defaultHTML';
 
 const backendHomePage = () => {
   return (
-    <div>
-        <h1>Landing Page for backend Portal</h1>
+    <DefaultHTML>
+      <div>
+        <h1>MLB ADMIN DASHBOARD</h1>
 
-    </div>
+        <h2>Associations</h2>
+
+        <div className="associationList">
+          <ul>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </DefaultHTML>
   )
 }
 
