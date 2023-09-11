@@ -13,8 +13,8 @@ function DefaultHTML (html) {
                     <a class="nav-link active" href="#">
                         <img className="logo" src="/images/MLBlogo.png" alt="Maui Land Broker logo"></img>
                     </a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
+                    {/* <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Link</a> */}
                 </nav>
                 {html.children}
             </body>

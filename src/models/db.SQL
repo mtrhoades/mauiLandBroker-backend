@@ -1,9 +1,7 @@
 
-CREATE TABLE haleKaiola(
+CREATE TABLE Associatons(
     association_id SERIAL PRIMARY KEY,
-    documentCategoryName VARCHAR(255),
-    numberOfFiles NUMERIC(10,2),
-    files VARCHAR(255)
+    association_name VARCHAR(255),
 );
 
 

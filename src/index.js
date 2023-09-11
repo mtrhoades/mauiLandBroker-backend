@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // root route (home page for backend portal)
-app.get('/', (req, res) => {
+app.get('/admin', (req, res) => {
     res.render("backendHomePage");
 });
 
