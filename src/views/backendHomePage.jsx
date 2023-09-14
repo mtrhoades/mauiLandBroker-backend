@@ -5,31 +5,33 @@ const backendHomePage = () => {
   const [association, setAssociation] = useState(''); // for adding 1 single association
   const [associations, setAssociations] = useState(''); // for fetching whole list of associations
 
-  const onSubmitForm = async(e) => {
-    e.preventDefault();
-    try {
-        const body = { association };
-        const response = await fetch("http://localhost:3001/associations", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
-        });
-        // console.log(response);
-        window.location = '/';
+//   const addAssociation = async(e) => {
+//     e.preventDefault();
+//     try {
+//         const body = { association };
+//         const response = await fetch("http://localhost:3001/associations", {
+//             method: "POST",
+//             headers: { "Content-Type": "application/json" },
+//             body: JSON.stringify(body),
+//         });
+//         // console.log(response);
+//         window.location = '/';
         
-    } catch (err) {
-        console.error(err.message)
-    }
-};
+//     } catch (err) {
+//         console.error(err.message)
+//     }
+// };
 
   return (
     <DefaultHTML>
       <div className="adminContainer">
-        <h1>MLB ADMIN DASHBOARD</h1>
+        <h1>ADMINISTRATIVE DASHBOARD</h1>
 
         <h2>Associations</h2>
 
-        <form className="addAssocForm" onSubmit={onSubmitForm}>
+        <form className="addAssocForm" 
+        // onSubmit={addAssociation}
+        >
           <input 
               type='text'
               className='form-control'
@@ -67,7 +69,7 @@ const backendHomePage = () => {
                   {/* {associations.map(associaton => (
                       <tr key={association.association_id}>
                           <th scope="col">{association.association_id}</th>
-                              <td>{association.association_name}</td>
+                              <td>{association.name}</td>
                               <td>
                                 <p>button here</p>
                               </td>

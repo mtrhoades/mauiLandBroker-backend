@@ -10,7 +10,7 @@ function DefaultHTML (html) {
             </head>
             <body>
                 <nav class="nav">
-                    <a class="nav-link active" href="#">
+                    <a class="nav-link active" href="/admin">
                         <img className="logo" src="/images/MLBlogo.png" alt="Maui Land Broker logo"></img>
                     </a>
                     {/* <a class="nav-link" href="#">Link</a>

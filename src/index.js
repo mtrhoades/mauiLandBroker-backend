@@ -1,6 +1,9 @@
 // dependencies
 const express = require('express');
 const cors = require('cors');
+const connectDB = require("./models/connect");
+const Association = require('./models/Association');
+const Item = require('./models/Item');
 
 // configuration
 require('dotenv').config();
@@ -15,15 +18,36 @@ app.engine('jsx', require('express-react-views').createEngine());
 app.use(cors());
 app.use(express.json());
 
+// adding schema mock data
+const association = new Association({
+    name: "Hale Kaiola"
+});
+
 // root route (home page for backend portal)
-app.get('/admin', (req, res) => {
+// app.get('/', (req, res) => {
+//     res.send(association);
+// });
+app.get('/', (req, res) => {
     res.render("backendHomePage");
 });
 
-// controller routes here
-
-// server listen
-app.listen(PORT, () => {
-    console.log("Yea Dawg we up in here on Port", PORT)
+app.get('/associations', async (req, res) => {
+    const result = await Association.find();
+    res.send({"associations": result});
 });
 
+// controller routes here
+// app.use('/associations', require('./controllers/associations'));
+
+// server listen
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI);
+        app.listen(PORT, () => {
+            console.log("Yea Dawg we up in here on Port", PORT)
+        });        
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+start();
