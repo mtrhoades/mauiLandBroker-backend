@@ -2,8 +2,8 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require("./models/connect");
+const methodOverride = require('method-override');
 const Association = require('./models/Association');
-const Item = require('./models/Item');
 
 // configuration
 require('dotenv').config();
@@ -17,6 +17,8 @@ app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 // adding schema mock data
 const association = new Association({
@@ -28,16 +30,11 @@ const association = new Association({
 //     res.send(association);
 // });
 app.get('/', (req, res) => {
-    res.render("backendHomePage");
-});
-
-app.get('/associations', async (req, res) => {
-    const result = await Association.find();
-    res.send({"associations": result});
+    res.send("Welcome to MLB ADMIN. back-end!");
 });
 
 // controller routes here
-// app.use('/associations', require('./controllers/associations'));
+app.use('/associations', require('./controllers/associations'));
 
 // server listen
 const start = async () => {
