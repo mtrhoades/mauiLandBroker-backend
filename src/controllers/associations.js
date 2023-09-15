@@ -9,7 +9,6 @@ associations.get('/', async (req, res) => {
         // res.json({"associations": result});
         res.render("backendHomePage", {
             associations: result,
-            title: 'Associations Page'
         });
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -32,7 +31,7 @@ associations.get('/:id', async (req, res) => {
 
 // Add a new association
 associations.post('/', async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const newAssociation = new Association(req.body);
     try {
         await newAssociation.save();

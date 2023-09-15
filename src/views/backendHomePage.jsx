@@ -3,7 +3,7 @@ import DefaultHTML from './defaultHTML';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-const backendHomePage = ({ associations, title }) => {
+const backendHomePage = ({ associations }) => {
 
   return (
     <DefaultHTML>
@@ -38,7 +38,11 @@ const backendHomePage = ({ associations, title }) => {
                     </a>
                   </td>
                   <td><button className='btn btn-primary'>File Categories</button></td>
-                  <td><button className='btn btn-outline-warning'>Edit User Info.</button></td>
+                  <td>
+                    <a href={`/editinfos/${association.id}`}>
+                      <button className='btn btn-outline-warning'>Edit Association</button>
+                    </a>
+                  </td>
                 </tr>
               )
             })

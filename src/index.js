@@ -21,20 +21,22 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
 // adding schema mock data
-const association = new Association({
-    name: "Hale Kaiola"
-});
+// const newAssociationInfo = new Association({
+//     name: "Hale Kaiola",
+//     directory: "HaleKaiola",
+//     username: "jka",
+//     password: '123456789asdfghj#'
+// });
+// newAssociationInfo.save();
 
 // root route (home page for backend portal)
-// app.get('/', (req, res) => {
-//     res.send(association);
-// });
 app.get('/', (req, res) => {
     res.send("Welcome to MLB ADMIN. back-end!");
 });
 
 // controller routes here
 app.use('/associations', require('./controllers/associations'));
+app.use('/editinfos', require('./controllers/editinfos'));
 
 // server listen
 const start = async () => {
