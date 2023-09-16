@@ -16,12 +16,13 @@ editinfos.get('/:id', async (req, res) => {
 });
 
 // edit association name 
-editinfos.put('/:id', async (req, res) => {
+editinfos.patch('/:id', async (req, res) => {
     try {
         const associationId = req.params.id;
-        const result = await Association.findOneAndReplace({_id: associationId}, req.body, {new: true});
+        const result = await Association.findOneAndUpdate({_id: associationId}, req.body, {new: true});
         console.log(result);
-        res.json({association: result});
+        // res.json({association: result});
+        res.redirect("/associations");
     } catch (error) {
         res.status(500).json({error: "Something Went Wrong!"})
     }

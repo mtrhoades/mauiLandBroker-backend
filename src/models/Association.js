@@ -3,21 +3,20 @@ const mongoose = require('mongoose');
 const associationSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        // required: true
     },
     directory: {
         type: String,
-        required: true,
-        immutable: true
+        // required: true,
     },
     username: {
         type: String,
-        required: true,
+        // required: true,
         immutable: true
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
         immutable: true
     }
 });
