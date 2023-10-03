@@ -22,7 +22,7 @@ editinfos.patch('/:id', async (req, res) => {
         const result = await Association.findOneAndUpdate({_id: associationId}, req.body, {new: true});
         console.log(result);
         // res.json({association: result});
-        res.redirect("/associations");
+        res.redirect("/admin/associations");
     } catch (error) {
         res.status(500).json({error: "Something Went Wrong!"})
     }

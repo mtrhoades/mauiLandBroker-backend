@@ -36,7 +36,7 @@ associations.post('/', async (req, res) => {
     try {
         await newAssociation.save();
         // res.status(201).json({newAssociation});
-        res.redirect("/associations");
+        res.redirect("/admin/associations");
     } catch (error) {
         res.status(400).json({error: error.message});
     }
@@ -48,7 +48,7 @@ associations.delete('/:id', async (req, res) => {
         const associationId = req.params.id;
         const result = await Association.findByIdAndDelete({_id: associationId});
         // res.json({deletedCount: result.deletedCount});
-        res.status(303).redirect('/associations')
+        res.status(303).redirect('/admin/associations')
     } catch (error) {
         res.status(500).json({error: "Something Went Wrong!"})
     }

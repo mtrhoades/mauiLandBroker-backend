@@ -30,13 +30,13 @@ app.use(methodOverride('_method'));
 // newAssociationInfo.save();
 
 // root route (home page for backend portal)
-app.get('/', (req, res) => {
-    res.send("Welcome to MLB ADMIN. back-end!");
+app.get('/admin', (req, res) => {
+    res.render("logInPage");
 });
 
 // controller routes here
-app.use('/associations', require('./controllers/associations'));
-app.use('/editinfos', require('./controllers/editinfos'));
+app.use('/admin/associations', require('./controllers/associations'));
+app.use('/admin/editinfos', require('./controllers/editinfos'));
 
 // server listen
 const start = async () => {

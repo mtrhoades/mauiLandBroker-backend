@@ -8,7 +8,7 @@ const singleAssociationPage = ({ association }) => {
                 <h2>Association</h2>
                 {association.name}
         
-                <form action={`/associations/${association.id}?_method=DELETE`} method="POST">
+                <form action={`/admin/associations/${association.id}?_method=DELETE`} method="POST">
                     <input type='submit' value="DELETE"/>
                 </form>
         

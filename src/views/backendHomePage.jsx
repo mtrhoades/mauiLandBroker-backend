@@ -12,7 +12,7 @@ const backendHomePage = ({ associations }) => {
 
         <h2>Associations</h2>
 
-        <form action="/associations" method="POST" className="addAssocForm">
+        <form action="/admin/associations" method="POST" className="addAssocForm">
           <input 
               type='text'
               className='form-control'
@@ -33,14 +33,14 @@ const backendHomePage = ({ associations }) => {
               return (
                 <tr key={association.id}>
                   <td>
-                    <a href={`/associations/${association.id}`}>
+                    <a href={`/admin/associations/${association.id}`}>
                       {association.name}
                     </a>
                   </td>
                   <td><button className='btn btn-primary'>File Categories</button></td>
                   <td>
-                    <a href={`/editinfos/${association.id}`}>
-                      <button className='btn btn-outline-warning'>Edit Association</button>
+                    <a href={`/admin/editinfos/${association.id}`}>
+                      <button className='btn btn-warning'>Edit Association</button>
                     </a>
                   </td>
                 </tr>
