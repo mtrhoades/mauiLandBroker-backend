@@ -12,12 +12,12 @@ const associationSchema = new mongoose.Schema({
     username: {
         type: String,
         // required: true,
-        immutable: true
+        // immutable: true
     },
     password: {
         type: String,
         // required: true,
-        immutable: true
+        // immutable: true
     }
 });
 

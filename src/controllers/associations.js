@@ -21,7 +21,7 @@ associations.get('/:id', async (req, res) => {
         const associationId = req.params.id;
         const result = await Association.findById({_id: associationId});
         // res.status(201).json({associations: result})
-        res.render("singleAssociationPage", {
+        res.render("editSingleAssociationPage", {
             association: result,
         });                
     } catch (error) {
@@ -29,7 +29,7 @@ associations.get('/:id', async (req, res) => {
     }
 });
 
-// Add a new association
+// Create a new association
 associations.post('/', async (req, res) => {
     // console.log(req.body);
     const newAssociation = new Association(req.body);
@@ -53,5 +53,27 @@ associations.delete('/:id', async (req, res) => {
         res.status(500).json({error: "Something Went Wrong!"})
     }
 });
+
+// Update a single association name and/or directory
+associations.patch('/:id', async (req, res) => {
+    try {
+        const associationId = req.params.id;
+        const result = await Association.findOneAndUpdate({_id: associationId}, req.body, {new: true});
+        console.log(result);
+        // res.json({result});
+        res.redirect("/admin/associations");
+    } catch (error) {
+        res.status(500).json({error: "Something Went Wrong!"})
+    }
+});
+
+// associations.put('/:id', async (req, res) => {
+//     await Association.findByIdAndUpdate(req.params.id, req.body, { new: true }) 
+//       .then(updatedAssociation => {
+//         // console.log(updatedAssociation) 
+//         res.redirect('/admin/associations/'); 
+//       });
+// });
+
 
 module.exports = associations;

@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require("./models/connect");
 const methodOverride = require('method-override');
-const Association = require('./models/Association');
 
 // configuration
 require('dotenv').config();
@@ -20,15 +19,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
-// adding schema mock data
-// const newAssociationInfo = new Association({
-//     name: "Hale Kaiola",
-//     directory: "HaleKaiola",
-//     username: "jka",
-//     password: '123456789asdfghj#'
-// });
-// newAssociationInfo.save();
-
 // root route (home page for backend portal)
 app.get('/admin', (req, res) => {
     res.render("logInPage");
@@ -36,7 +26,6 @@ app.get('/admin', (req, res) => {
 
 // controller routes here
 app.use('/admin/associations', require('./controllers/associations'));
-app.use('/admin/editinfos', require('./controllers/editinfos'));
 
 // server listen
 const start = async () => {

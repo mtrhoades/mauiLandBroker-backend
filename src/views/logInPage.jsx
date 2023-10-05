@@ -28,7 +28,9 @@ const logInPage = (html) => {
                         <input type="password" id="passWord" class="form-control" style={{border: "1px solid"}} />
                     </div>
                     {/* <!-- Submit button --> */}
-                    <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+                    <a href="/admin/associations">
+                        <button type="button" class="btn btn-primary btn-block mb-4">Log in</button>
+                    </a>
                 </form>
             </div>
         </body>

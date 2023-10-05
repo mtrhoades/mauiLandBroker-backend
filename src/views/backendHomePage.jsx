@@ -33,13 +33,11 @@ const backendHomePage = ({ associations }) => {
               return (
                 <tr key={association.id}>
                   <td>
-                    <a href={`/admin/associations/${association.id}`}>
                       {association.name}
-                    </a>
                   </td>
                   <td><button className='btn btn-primary'>File Categories</button></td>
                   <td>
-                    <a href={`/admin/editinfos/${association.id}`}>
+                    <a href={`/admin/associations/${association.id}`}>
                       <button className='btn btn-warning'>Edit Association</button>
                     </a>
                   </td>
