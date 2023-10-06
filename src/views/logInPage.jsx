@@ -9,7 +9,7 @@ const logInPage = (html) => {
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet"/>
         <link href="/css/main.css" rel="stylesheet"></link>
         </head>
-        <body>
+        <body className="loginBody">
             <nav class="nav">
                 <a class="nav-link active" href="/admin">
                     <img className="logo" src="/images/MLBlogo.png" alt="Maui Land Broker logo"></img>
@@ -17,17 +17,14 @@ const logInPage = (html) => {
             </nav>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <form style={{paddingTop: '40px'}}>
-                    {/* <!-- Username input --> */}
                     <div class="form-outline mb-4">
                         <label class="form-label" for="userName">User Name</label>
-                        <input type="text" id="userName" class="form-control" style={{border: "1px solid"}} />
+                        <input type="text" name="username" id="userName" class="form-control" style={{border: "1px solid"}} />
                     </div>
-                    {/* <!-- Password input --> */}
                     <div class="form-outline mb-4">
                         <label class="form-label" for="passWord">Password</label>
-                        <input type="password" id="passWord" class="form-control" style={{border: "1px solid"}} />
+                        <input type="password" name="password" id="passWord" class="form-control" style={{border: "1px solid"}} />
                     </div>
-                    {/* <!-- Submit button --> */}
                     <a href="/admin/associations">
                         <button type="button" class="btn btn-primary btn-block mb-4">Log in</button>
                     </a>
