@@ -35,7 +35,11 @@ const backendHomePage = ({ associations }) => {
                   <td>
                       {association.name}
                   </td>
-                  <td><button className='btn btn-primary'>File Categories</button></td>
+                  <td>
+                    <a href={`/admin/associations/files/${association.id}`}>
+                      <button className='btn btn-primary'>File Categories</button>
+                    </a>
+                  </td>
                   <td>
                     <a href={`/admin/associations/${association.id}`}>
                       <button className='btn btn-warning'>Edit Association</button>

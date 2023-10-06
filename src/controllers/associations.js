@@ -1,6 +1,5 @@
 const associations = require("express").Router(); 
 const Association = require('../models/Association'); // requiring models to use schema - Association
-// const path = require('path');
 
 // Get all (read) associations
 associations.get('/', async (req, res) => {
@@ -74,6 +73,5 @@ associations.patch('/:id', async (req, res) => {
 //         res.redirect('/admin/associations/'); 
 //       });
 // });
-
 
 module.exports = associations;
