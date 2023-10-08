@@ -31,6 +31,19 @@ files.get('/:id', async (req, res) => {
 });
 
 // POST route for adding a file category
+files.post('/:id', async (req, res) => {
+    const associationId = req.params.id;
+    const newCategory = {
+        categoryname: '',
+        files: []
+      };
+    try {
+        await Association.findOneAndUpdate({_id: associationId}, {$push: {filecategories: newCategory}}, {new: true});
+        res.render("fileCategorySingleAssoc");                
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+});
 
 
 // PUT route
