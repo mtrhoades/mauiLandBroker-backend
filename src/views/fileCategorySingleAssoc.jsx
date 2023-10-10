@@ -3,6 +3,8 @@ import DefaultHTML from './defaultHTML';
 
 const fileCategorySingleAssoc = ( { association } ) => {
 
+ 
+
   return (
     <DefaultHTML>
         <div className="adminContainer">
@@ -12,8 +14,13 @@ const fileCategorySingleAssoc = ( { association } ) => {
 
             <h2>{association.name}</h2>
 
-            <form action={`/admin/associations/files/${association.id}`} method="POST" style={{paddingBottom: '2rem'}}>
-                <input class="associationCategory" name="categoryname" placeholder="Add files Category"></input>
+            <form className="addCategoryForm" action={`/admin/associations/files/${association.id}`} method="POST" style={{paddingBottom: '2rem'}}>
+                <input 
+                    type="text"
+                    className="form-control"
+                    name="categoryname"
+                    placeholder="Add files Category"
+                />
                 <button className='btn btn-success'>Add</button>
             </form>
 
@@ -36,9 +43,7 @@ const fileCategorySingleAssoc = ( { association } ) => {
                                 </a>
                             </td>
                             <td>
-                                <a>
-                                    <button class="btn btn-warning">Edit Category Name</button>
-                                </a>
+                                <button class="btn btn-warning">Edit Category Name</button>
                             </td>
                         </tr>
                     )

@@ -39,7 +39,7 @@ associations.post('/', async (req, res) => {
     } catch (error) {
         res.status(400).json({error: error.message});
     }
-})
+});
 
 // Delete an association
 associations.delete('/:id', async (req, res) => {

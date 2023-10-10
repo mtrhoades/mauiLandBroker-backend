@@ -39,6 +39,10 @@ h2 {
     justify-content: center;
 }
 
+.addCategoryForm {
+    display: flex;
+}
+
 .editForm {
     display: flex;
     flex-direction: column;

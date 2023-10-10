@@ -39,7 +39,7 @@ files.post('/:id', async (req, res) => {
       };
     try {
         await Association.findOneAndUpdate({_id: associationId}, {$push: {filecategories: newCategory}}, {new: true});
-        res.render("fileCategorySingleAssoc");                
+        res.redirect(req.get('referer'));
     } catch (error) {
         res.status(400).json({error: error.message});
     }
