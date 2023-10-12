@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DefaultHTML from './defaultHTML';
+import EditCategoryModal from './components/EditCategoryModal';
 
 const fileCategorySingleAssoc = ( { association } ) => {
-
- 
 
   return (
     <DefaultHTML>
@@ -26,29 +25,37 @@ const fileCategorySingleAssoc = ( { association } ) => {
 
             <table>
                 <thead>
-                    <th>File Category Name</th>
-                    <th></th>
-                    <th></th>
+                    <tr>
+                        <th scope="col">File Category Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
                 </thead>
+                <tbody>
                 {
-                    association.filecategories.map((obj) => {
+                    association.filecategories.map((categoryObject, index) => {
+                        // console.log(categoryObject.id)
                     return (
-                        <tr key={association.id}>
+                        <tr key={categoryObject.id}>
                             <td>
-                                {obj.categoryname}
+                                {categoryObject.categoryname}
                             </td>
                             <td>
-                                <a>
+                                    {categoryObject.id}
+                                {/* <a>
                                     <button class="btn btn-primary">Manage Files</button>
-                                </a>
+                                </a> */}
                             </td>
                             <td>
-                                <button class="btn btn-warning">Edit Category Name</button>
+                                <a href={`/admin/associations/categories/${categoryObject.id}`}>
+                                    <button className='btn btn-warning'>Edit Category</button>
+                                </a>
                             </td>
                         </tr>
                     )
                     })
                 }
+                </tbody>
             </table>
 
         </div>

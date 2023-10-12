@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import DefaultHTML from './defaultHTML';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-const backendHomePage = ({ associations }) => {
+const backendHomePage = ( { associations } ) => {
 
   return (
     <DefaultHTML>
@@ -30,6 +28,7 @@ const backendHomePage = ({ associations }) => {
           </thead>
           {
             associations.map((association) => {
+              // console.log(association.id)
               return (
                 <tr key={association.id}>
                   <td>

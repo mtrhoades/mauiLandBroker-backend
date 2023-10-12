@@ -34,7 +34,7 @@ files.get('/:id', async (req, res) => {
 files.post('/:id', async (req, res) => {
     const associationId = req.params.id;
     const newCategory = {
-        categoryname: '',
+        categoryname: 'Balance Sheets', // needs to link to whatever is typed in input field!
         files: []
       };
     try {
