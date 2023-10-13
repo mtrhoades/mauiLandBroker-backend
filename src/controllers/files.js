@@ -34,7 +34,7 @@ files.get('/:id', async (req, res) => {
 files.post('/:id', async (req, res) => {
     const associationId = req.params.id;
     const newCategory = {
-        categoryname: 'Balance Sheets', // needs to link to whatever is typed in input field!
+        categoryname: 'New Category Name', // needs to link to whatever is typed in input field!
         files: []
       };
     try {
@@ -45,8 +45,53 @@ files.post('/:id', async (req, res) => {
     }
 });
 
+// GET a single category object route for editing the category name
+files.get('/:id/categories/:catid', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    // console.log(categoryId);
+    try {
+        const result = await Association.findOne({'filecategories._id': categoryId});
+        const categoriesArray = result.filecategories;
+        console.log(result);
+        for (let i = 0; i < categoriesArray.length; i++) {
+            if (categoryId === categoriesArray[i].id) {
+                // console.log(categoriesArray[i].id)
+                // res.status(201).json({category: categoriesArray[i].categoryname})
+                res.render("editSingleFileCategoryPage", {
+                    category: categoriesArray[i],
+                    associationId: associationId
+                });
+            }
+        }
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
 
-// PUT route
+// PATCH route for actually editing/updating category name
+files.patch('/:id/categories/:catid', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    try {
+        const result = await Association.findOneAndUpdate(
+            {'filecategories._id': categoryId},
+            {$set: {'filecategories.$': req.body}},
+            {new: true}
+        );
+        console.log(result);
+        if(result){
+            // res.json(result);
+            res.render("fileCategorySingleAssoc", {
+                association: result
+            });
+        } else {
+            res.status(404).json({error: "Something Went Wrong!"})
+        }
+    } catch (error) {
+        res.status(500).json({error: "Something Went Wrong!"})
+    }
+});
 
 
 module.exports = files;

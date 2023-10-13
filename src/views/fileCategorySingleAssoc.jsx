@@ -34,20 +34,19 @@ const fileCategorySingleAssoc = ( { association } ) => {
                 <tbody>
                 {
                     association.filecategories.map((categoryObject, index) => {
-                        // console.log(categoryObject.id)
+                        console.log(categoryObject)
                     return (
                         <tr key={categoryObject.id}>
                             <td>
                                 {categoryObject.categoryname}
                             </td>
                             <td>
-                                    {categoryObject.id}
-                                {/* <a>
+                                <a>
                                     <button class="btn btn-primary">Manage Files</button>
-                                </a> */}
+                                </a>
                             </td>
                             <td>
-                                <a href={`/admin/associations/categories/${categoryObject.id}`}>
+                                <a href={`/admin/associations/files/${association.id}/categories/${categoryObject.id}`}>
                                     <button className='btn btn-warning'>Edit Category</button>
                                 </a>
                             </td>

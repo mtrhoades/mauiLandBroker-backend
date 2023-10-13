@@ -66,12 +66,4 @@ associations.patch('/:id', async (req, res) => {
     }
 });
 
-// associations.put('/:id', async (req, res) => {
-//     await Association.findByIdAndUpdate(req.params.id, req.body, { new: true }) 
-//       .then(updatedAssociation => {
-//         // console.log(updatedAssociation) 
-//         res.redirect('/admin/associations/'); 
-//       });
-// });
-
 module.exports = associations;
