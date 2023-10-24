@@ -19,7 +19,8 @@ associations.get('/:id', async (req, res) => {
     try {
         const associationId = req.params.id;
         const result = await Association.findById({_id: associationId});
-        // res.status(201).json({associations: result})
+        // res.status(201).json({associations: result});
+        // console.log(result.filecategories[0].files[1]);
         res.render("editSingleAssociationPage", {
             association: result,
         });                

@@ -23,11 +23,11 @@ const editSingleFileCategoryPage = ( { category, associationId } ) => {
                     <input name="categoryname" type="text" defaultValue={categoryName} onChange={handleInputChange}></input>
                 </div>
 
-                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" className="btn btn-success">Save</button>
             </form>
 
             <form action={`/admin/associations/files/${associationId}/categories/${category.id}?_method=DELETE`} method="POST" style={{paddingTop: '3rem'}}>
-            <input class="btn btn-danger" type='submit' value="Delete Category"/>
+            <input className="btn btn-danger" type='submit' value="Delete Category"/>
           </form>
 
         </div>

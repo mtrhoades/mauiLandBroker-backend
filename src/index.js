@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
-// root route (home page for backend portal)
+// root route (home page for login)
 app.get('/admin', (req, res) => {
     res.render("logInPage");
 });

@@ -2,12 +2,12 @@ const files = require("express").Router();
 const Association = require('../models/Association'); // requiring models to use schema - Association
 
 
-// GET A SINGLE association route to view file categories for that association
+// GET A SINGLE association route to view ALL file categories for that association
 files.get('/:id', async (req, res) => {
     try {
         const associationId = req.params.id;
         const result = await Association.findById({_id: associationId});
-        console.log(result)
+        // console.log(result)
         // res.status(201).json({associations: result})
         res.render("fileCategorySingleAssoc", {
             association: result,
@@ -18,18 +18,18 @@ files.get('/:id', async (req, res) => {
 });
 
 // GET ALL route for file categories to specific association
-files.get('/:id', async (req, res) => {
-    const associationId = req.params.id;
-    try {
-        const result = await Association.find();
-        // res.json({"associations": result});
-        res.render("fileCategorySingleAssoc", {
-            association: result,
-        });                
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+// files.get('/:id', async (req, res) => {
+//     const associationId = req.params.id;
+//     try {
+//         const result = await Association.find();
+//         // res.json({"associations": result});
+//         res.render("fileCategorySingleAssoc", {
+//             association: result,
+//         });                
+//     } catch (error) {
+//         res.status(500).json({error: error.message});
+//     }
+// });
 
 // POST route for adding a file category
 files.post('/:id', async (req, res) => {
@@ -56,7 +56,9 @@ files.get('/:id/categories/:catid', async (req, res) => {
     const categoryId = req.params.catid;
     // console.log(categoryId);
     try {
-        const result = await Association.findOne({'filecategories._id': categoryId});
+        const result = await Association.findOne(
+            {'filecategories._id': categoryId}
+        );
         const categoriesArray = result.filecategories;
         // console.log(result);
         for (let i = 0; i < categoriesArray.length; i++) {
@@ -84,12 +86,10 @@ files.patch('/:id/categories/:catid', async (req, res) => {
             {$set: {'filecategories.$': req.body}},
             {new: true}
         );
-        // console.log(result);
+        console.log(result);
         if(result){
             // res.json(result);
-            res.render("fileCategorySingleAssoc", {
-                association: result
-            });
+            res.redirect(`/admin/associations/files/${associationId}`);
         } else {
             res.status(404).json({error: "Something Went Wrong!"})
         }
@@ -109,8 +109,8 @@ files.delete('/:id/categories/:catid', async (req, res) => {
             {new: true}
         );
         // res.json({deletedCount: result.modifiedCount});
-        res.redirect('/admin/associations');
-} catch (error) {
+        res.redirect(`/admin/associations/files/${associationId}`);
+    } catch (error) {
         res.status(500).json({error: "Something Went Wrong!"})
     }
 });

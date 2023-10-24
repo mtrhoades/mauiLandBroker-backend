@@ -30,10 +30,10 @@ const singleEditInfoPage = ( { association } ) => {
                 <input name="directory" type="text" defaultValue={associationDirectory} onChange={handleInputChange}></input>
 
                 <label>User Name:</label>
-                <input name="username" type="text" defaultValue={associationUsername} readonly="readonly"></input>
+                <input name="username" type="text" defaultValue={associationUsername} readOnly="readonly"></input>
 
                 <label>Password:</label>
-                <input name="password" type="text" defaultValue={associationPassword} readonly="readonly"></input>
+                <input name="password" type="text" defaultValue={associationPassword} readOnly="readonly"></input>
               </div>
 
               <button type="submit" class="btn btn-success">Save</button>
