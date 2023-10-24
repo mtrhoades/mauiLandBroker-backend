@@ -27,7 +27,6 @@ app.get('/admin', (req, res) => {
 // controller routes here
 app.use('/admin/associations', require('./controllers/associations'));
 app.use('/admin/associations/files', require('./controllers/files'));
-// app.use('/admin/associations/files/categories', require('./controllers/categories'));
 
 // server listen
 const start = async () => {

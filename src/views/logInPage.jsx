@@ -11,9 +11,7 @@ const logInPage = (html) => {
         </head>
         <body className="loginBody">
             <nav class="nav">
-                <a class="nav-link active" href="/admin">
                     <img className="logo" src="/images/MLBlogo.png" alt="Maui Land Broker logo"></img>
-                </a>
             </nav>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <form style={{paddingTop: '40px'}}>

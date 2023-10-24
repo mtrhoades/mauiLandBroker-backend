@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import DefaultHTML from './defaultHTML';
 
 const editSingleFileCategoryPage = ( { category, associationId } ) => {
-    console.log(category)
+    // console.log(category)
     const [categoryName, setCategoryName] = useState(category.categoryname)
 
     const handleInputChange = () => {
@@ -25,6 +25,10 @@ const editSingleFileCategoryPage = ( { category, associationId } ) => {
 
                 <button type="submit" class="btn btn-success">Save</button>
             </form>
+
+            <form action={`/admin/associations/files/${associationId}/categories/${category.id}?_method=DELETE`} method="POST" style={{paddingTop: '3rem'}}>
+            <input class="btn btn-danger" type='submit' value="Delete Category"/>
+          </form>
 
         </div>
     </DefaultHTML>

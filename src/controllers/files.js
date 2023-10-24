@@ -7,6 +7,7 @@ files.get('/:id', async (req, res) => {
     try {
         const associationId = req.params.id;
         const result = await Association.findById({_id: associationId});
+        console.log(result)
         // res.status(201).json({associations: result})
         res.render("fileCategorySingleAssoc", {
             association: result,
@@ -38,7 +39,11 @@ files.post('/:id', async (req, res) => {
         files: []
       };
     try {
-        await Association.findOneAndUpdate({_id: associationId}, {$push: {filecategories: newCategory}}, {new: true});
+        await Association.findOneAndUpdate(
+            {_id: associationId},
+            {$push: {filecategories: newCategory}},
+            {new: true}
+        );
         res.redirect(req.get('referer'));
     } catch (error) {
         res.status(400).json({error: error.message});
@@ -53,7 +58,7 @@ files.get('/:id/categories/:catid', async (req, res) => {
     try {
         const result = await Association.findOne({'filecategories._id': categoryId});
         const categoriesArray = result.filecategories;
-        console.log(result);
+        // console.log(result);
         for (let i = 0; i < categoriesArray.length; i++) {
             if (categoryId === categoriesArray[i].id) {
                 // console.log(categoriesArray[i].id)
@@ -79,7 +84,7 @@ files.patch('/:id/categories/:catid', async (req, res) => {
             {$set: {'filecategories.$': req.body}},
             {new: true}
         );
-        console.log(result);
+        // console.log(result);
         if(result){
             // res.json(result);
             res.render("fileCategorySingleAssoc", {
@@ -89,6 +94,23 @@ files.patch('/:id/categories/:catid', async (req, res) => {
             res.status(404).json({error: "Something Went Wrong!"})
         }
     } catch (error) {
+        res.status(500).json({error: "Something Went Wrong!"})
+    }
+});
+
+// DELETE route for deleting category object
+files.delete('/:id/categories/:catid', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    try {
+        const result = await Association.findOne({'filecategories._id': categoryId}).updateOne(
+            {_id: associationId},
+            {$pull: {'filecategories': {_id: categoryId}}},
+            {new: true}
+        );
+        // res.json({deletedCount: result.modifiedCount});
+        res.redirect('/admin/associations');
+} catch (error) {
         res.status(500).json({error: "Something Went Wrong!"})
     }
 });

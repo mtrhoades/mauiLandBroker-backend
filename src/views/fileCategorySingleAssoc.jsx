@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import DefaultHTML from './defaultHTML';
-import EditCategoryModal from './components/EditCategoryModal';
 
 const fileCategorySingleAssoc = ( { association } ) => {
 
@@ -34,7 +33,7 @@ const fileCategorySingleAssoc = ( { association } ) => {
                 <tbody>
                 {
                     association.filecategories.map((categoryObject, index) => {
-                        console.log(categoryObject)
+                        // console.log(categoryObject)
                     return (
                         <tr key={categoryObject.id}>
                             <td>
