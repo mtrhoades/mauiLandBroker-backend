@@ -17,7 +17,7 @@ const fileCategorySingleAssoc = ( { association } ) => {
                     type="text"
                     className="form-control"
                     name="categoryname"
-                    placeholder="Add files Category"
+                    placeholder="Add Files Category"
                 />
                 <button className='btn btn-success'>Add</button>
             </form>
@@ -40,7 +40,7 @@ const fileCategorySingleAssoc = ( { association } ) => {
                                 {categoryObject.categoryname}
                             </td>
                             <td>
-                                <a>
+                                <a href={`/admin/associations/files/${association.id}/categories/${categoryObject.id}/pdfs`}>
                                     <button className="btn btn-primary">Manage Files</button>
                                 </a>
                             </td>

@@ -49,7 +49,7 @@ files.get('/:id/categories/:catid', async (req, res) => {
         // console.log(result);
         for (let i = 0; i < categoriesArray.length; i++) {
             if (categoryId === categoriesArray[i].id) {
-                // console.log(categoriesArray[i].id)
+                // console.log(categoriesArray[i])
                 // res.status(201).json({category: categoriesArray[i].categoryname})
                 res.render("editSingleFileCategoryPage", {
                     category: categoriesArray[i],
@@ -100,6 +100,36 @@ files.delete('/:id/categories/:catid', async (req, res) => {
         res.status(500).json({error: "Something Went Wrong!"})
     }
 });
+
+
+// ************************************************************************************* //
+// pdfs routes:
+
+// GET a single category object route for managing pdf files to the specific category name
+files.get('/:id/categories/:catid/pdfs', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    try {
+        const result = await Association.findOne(
+            {'filecategories._id': categoryId}
+        );
+        const categoriesArray = result.filecategories;
+        console.log(result);
+        for (let i = 0; i < categoriesArray.length; i++) {
+            if (categoryId === categoriesArray[i].id) {
+                // res.status(201).json({category: categoriesArray[i].categoryname})
+                res.render("managePdfs", {
+                    categoryObject: categoriesArray[i],
+                    associationId: associationId,
+                    association: result
+                });
+            }
+        }
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
 
 
 module.exports = files;
