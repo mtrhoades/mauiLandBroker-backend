@@ -17,14 +17,16 @@ const managePdfs = ( { categoryObject, associationId, association } ) => {
 
             <h3>{categoryObject.categoryname}</h3>
 
-            <form className="addPdfFileForm" action={`/admin/associations/files/${associationId}/categories/${categoryObject.id}`} method="POST" style={{paddingBottom: '2rem'}}>
-                <input 
-                    type="text"
-                    className="form-control"
-                    name="filename"
-                    placeholder="Add PDF File"
-                />
-                <button className='btn btn-success'>Add</button>
+            <form
+            className="addPdfFileForm"
+            action={`/admin/associations/files/${associationId}/categories/${categoryObject.id}/pdfs`}
+            encType="multipart/form-data"
+            method="POST"
+            style={{paddingBottom: '2rem'}}
+            >
+                <input name="filename" id='file' type="file" required></input>
+
+                <button className="btn btn-primary" type='submit'>Upload</button>
             </form>
 
             <table>
