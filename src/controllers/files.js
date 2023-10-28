@@ -154,5 +154,63 @@ files.post('/:id/categories/:catid/pdfs', upload.single('filename'), async (req,
     }
 });
 
+// GET route for a single file object from files array
+files.get('/:id/categories/:catid/pdfs/:pdfid', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    const pdfId = req.params.pdfid
+    try {
+        const result = await Association.findOne(
+            {'filecategories._id': categoryId}
+        );
+        const categoriesArray = result.filecategories;
+        for (let i = 0; i < categoriesArray.length; i++) {
+            if (categoryId === categoriesArray[i].id) {
+                const filesArray = categoriesArray[i].files
+                for(let j = 0; j < filesArray.length; j++) {
+                    if (pdfId === filesArray[j].id) {
+                        // console.log(filesArray[j]);
+                        res.render("editSingleFilePage", {
+                            file: filesArray[j],
+                            categoryObjectId: categoriesArray[i].id,
+                            associationId: associationId
+                        })
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+// PATCH route for editing the file name
+files.patch('/:id/categories/:catid/pdfs/:pdfid', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    const pdfId = req.params.pdfid;
+    const categoryObjectFilter = {'category._id': categoryId};
+    const fileObjectFilter = {'file._id': pdfId};
+    try {
+        const result = await Association.findOneAndUpdate(
+            {'filecategories._id': categoryId},
+            {$set: {'filecategories.$[category].files.$[file]': req.body}},
+            {arrayFilters: [categoryObjectFilter, fileObjectFilter]},
+            {new: true}
+        );
+        // console.log(result);
+        if(result){
+            // res.json(result);
+            res.redirect(`/admin/associations/files/${associationId}/categories/${categoryId}/pdfs`);
+        } else {
+            res.status(404).json({error: "Something Went Wrong!"})
+        }
+    } catch (error) {
+        res.status(500).json({error: "Something Went Wrong!"})
+    }
+});
+
+// DELETE route for deleting a file from the files array
+
 
 module.exports = files;

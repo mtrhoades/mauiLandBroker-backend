@@ -47,15 +47,15 @@ const managePdfs = ( { categoryObject, associationId, association } ) => {
                                 {fileObject.filename}
                             </td>
                             <td>
-                                <a>
-                                    <button className="btn btn-warning">Edit File Name</button>
+                                <a href={`/admin/associations/files/${associationId}/categories/${categoryObject.id}/pdfs/${fileObject.id}`}>
+                                    <button className="btn btn-warning">Edit File</button>
                                 </a>
                             </td>
-                            <td>
+                            {/* <td>
                                 <a>
                                     <button className='btn btn-danger'>Delete File</button>
                                 </a>
-                            </td>
+                            </td> */}
                         </tr>
                         )
                     })

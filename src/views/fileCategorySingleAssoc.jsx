@@ -22,10 +22,12 @@ const fileCategorySingleAssoc = ( { association } ) => {
                 <button className='btn btn-success'>Add</button>
             </form>
 
+            <h3>File Categories</h3>
+
             <table>
                 <thead>
                     <tr>
-                        <th scope="col">File Category Name</th>
+                        <th scope="col">Category Name</th>
                         <th></th>
                         <th></th>
                     </tr>
