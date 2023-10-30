@@ -21,13 +21,16 @@ const editSingleFilePage = ( { file, associationId, categoryObjectId } ) => {
             <div>
                 <label>File Name:</label>
                 <input name="filename" type="text" defaultValue={file.filename} onChange={handleInputChange}></input>
+
+                <label>File Size:</label>
+                <input name="size" type="text" defaultValue={file.size} readOnly></input>
             </div>
 
             <button type="submit" className="btn btn-success">Save File</button>
         </form>
 
         <form action={`/admin/associations/files/${associationId}/categories/${categoryObjectId}/pdfs/${file.id}?_method=DELETE`} method="POST" style={{paddingTop: '3rem'}}>
-        <input className="btn btn-danger" type='submit' value="Delete File"/>
+          <input className="btn btn-danger" type='submit' value="Delete File"/>
         </form>
 
         </div>

@@ -96,6 +96,7 @@ files.delete('/:id/categories/:catid', async (req, res) => {
             {$pull: {'filecategories': {_id: categoryId}}},
             {new: true}
         );
+        // console.log(result);
         // res.json({deletedCount: result.modifiedCount});
         res.redirect(`/admin/associations/files/${associationId}`);
     } catch (error) {
@@ -200,7 +201,6 @@ files.patch('/:id/categories/:catid/pdfs/:pdfid', async (req, res) => {
         );
         // console.log(result);
         if(result){
-            // res.json(result);
             res.redirect(`/admin/associations/files/${associationId}/categories/${categoryId}/pdfs`);
         } else {
             res.status(404).json({error: "Something Went Wrong!"})
@@ -210,7 +210,24 @@ files.patch('/:id/categories/:catid/pdfs/:pdfid', async (req, res) => {
     }
 });
 
-// DELETE route for deleting a file from the files array
-
+// DELETE route for deleting a file object from the files array
+files.delete('/:id/categories/:catid/pdfs/:pdfid', async (req, res) => {
+    const associationId = req.params.id;
+    const categoryId = req.params.catid;
+    const pdfId = req.params.pdfid;
+    const categoryObjectFilter = {'category._id': categoryId};
+    const fileObjectFilter = {'file._id': pdfId};
+    try {
+        const result = await Association.findOne({'filecategories._id': categoryId}).updateOne(
+            {_id: associationId},
+            {$pull: {'filecategories.$[category].files': {_id: pdfId}}},
+            {arrayFilters: [categoryObjectFilter, fileObjectFilter], new: true},
+        );
+        // console.log(result);
+        res.redirect(`/admin/associations/files/${associationId}/categories/${categoryId}/pdfs`);
+    } catch (error) {
+        res.status(500).json({error: "Something Went Wrong!"})
+    }
+});
 
 module.exports = files;
