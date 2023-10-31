@@ -22,8 +22,15 @@ const editSingleFilePage = ( { file, associationId, categoryObjectId } ) => {
                 <label>File Name:</label>
                 <input name="filename" type="text" defaultValue={file.filename} onChange={handleInputChange}></input>
 
-                <label>File Size:</label>
-                <input name="size" type="text" defaultValue={file.size} readOnly></input>
+                <div style={{display: 'none'}}>
+                  <label>File Size:</label>
+                  <input name="size" type="text" defaultValue={file.size} readOnly></input>
+                </div>
+
+                <div style={{display: 'none'}}>
+                  <label>File Path:</label>
+                  <input name="filepath" type="text" defaultValue={file.filepath} readOnly></input>
+                </div>
             </div>
 
             <button type="submit" className="btn btn-success">Save File</button>

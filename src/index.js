@@ -19,9 +19,59 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
+// login code and dependencies
+const User = require('./models/User.js');
+const bcrypt = require('bcryptjs');
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// for adding a new user
+// const newUser = new User({
+//     username: 'admin2',
+//     password: 'Bu55%aCak*s'
+// });
+// newUser.save();
+
 // root route (home page for login)
 app.get('/admin', (req, res) => {
     res.render("logInPage");
+});
+
+// Route to handle login form submission
+app.post('/admin', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const user = await User.findOne({ username });
+
+        if (!user) {
+            throw new Error('Invalid username or password');
+        }
+
+        const isMatch = await new Promise((resolve, reject) => {
+            user.comparePassword(password, (passwordErr, match) => {
+                if (passwordErr || !match) {
+                    reject(new Error('Invalid username or password'));
+                } else {
+                    resolve(match);
+                }
+            });
+        });
+
+        if (!isMatch) {
+            throw new Error('Invalid username or password');
+        }
+
+        // Authentication successful
+        // You can set a session or token to keep the user authenticated
+
+        // res.status(200).json({ message: 'Login successful' });
+        res.redirect("/admin/associations");
+    } catch (error) {
+        // Handle errors and return appropriate responses
+        res.status(401).json({ message: error.message });
+    }
 });
 
 // controller routes here

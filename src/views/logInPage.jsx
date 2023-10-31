@@ -14,18 +14,16 @@ const logInPage = (html) => {
                     <img className="logo" src="/images/MLBlogo.png" alt="Maui Land Broker logo"></img>
             </nav>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <form style={{paddingTop: '40px'}}>
+                <form action="/admin" method="POST" style={{paddingTop: '40px'}}>
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="userName">User Name</label>
-                        <input type="text" name="username" id="userName" className="form-control" style={{border: "1px solid"}} />
+                        <input type="text" name="username" id="userName" className="form-control" required style={{border: "1px solid"}} />
                     </div>
                     <div className="form-outline mb-4">
                         <label className="form-label" htmlFor="passWord">Password</label>
-                        <input type="password" name="password" id="passWord" className="form-control" style={{border: "1px solid"}} />
+                        <input type="password" name="password" id="passWord" className="form-control" required style={{border: "1px solid"}} />
                     </div>
-                    <a href="/admin/associations">
-                        <button type="button" className="btn btn-primary btn-block mb-4">Log in</button>
-                    </a>
+                        <button type="submit" className="btn btn-primary btn-block mb-4">Log in</button>
                 </form>
             </div>
         </body>
