@@ -15,7 +15,7 @@ const associationSchema = new mongoose.Schema({
     },
     filecategories: [
         {categoryname: {type: String}, files: [
-            {filename: {type: String}, size: {type: String}}
+            {filename: {type: String}, size: {type: String}, filepath: {type: String}}
         ]}
     ]
 });

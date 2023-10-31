@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DefaultHTML from './defaultHTML';
 
-const singleEditInfoPage = ( { association } ) => {
+const editSingleAssociationPage = ( { association } ) => {
 
   const [associationName, setAssociationName] = useState(association.name);
   const [associationDirectory, setAssociationDirectory] = useState(association.directory);
@@ -36,15 +36,15 @@ const singleEditInfoPage = ( { association } ) => {
                 <input name="password" type="text" defaultValue={associationPassword} readOnly="readonly"></input>
               </div>
 
-              <button type="submit" class="btn btn-success">Save</button>
+              <button type="submit" className="btn btn-success">Save</button>
           </form>
 
           <form action={`/admin/associations/${association.id}?_method=DELETE`} method="POST" style={{paddingTop: '3rem'}}>
-            <input class="btn btn-danger" type='submit' value="Delete Association"/>
+            <input className="btn btn-danger" type='submit' value="Delete Association"/>
           </form>
         </div>
     </DefaultHTML>
   )
 }
 
-export default singleEditInfoPage;
+export default editSingleAssociationPage;

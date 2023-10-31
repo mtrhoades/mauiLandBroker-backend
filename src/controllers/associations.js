@@ -59,7 +59,7 @@ associations.patch('/:id', async (req, res) => {
     try {
         const associationId = req.params.id;
         const result = await Association.findOneAndUpdate({_id: associationId}, req.body, {new: true});
-        console.log(result);
+        // console.log(result);
         // res.json({result});
         res.redirect("/admin/associations");
     } catch (error) {

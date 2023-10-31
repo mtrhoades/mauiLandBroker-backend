@@ -74,7 +74,7 @@ files.patch('/:id/categories/:catid', async (req, res) => {
             {$set: {'filecategories.$': req.body}},
             {new: true}
         );
-        console.log(result);
+        // console.log(result);
         if(result){
             // res.json(result);
             res.redirect(`/admin/associations/files/${associationId}`);
@@ -137,9 +137,9 @@ files.post('/:id/categories/:catid/pdfs', upload.single('filename'), async (req,
     const associationId = req.params.id;
     const categoryId = req.params.catid;
     const newFile = {
-        path: req.file.path,
         filename: req.file.originalname,
-        size: req.file.size
+        size: req.file.size,
+        filepath: req.file.path
     }
     try {
         const result = await Association.updateOne(
