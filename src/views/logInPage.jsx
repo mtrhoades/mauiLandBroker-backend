@@ -16,12 +16,12 @@ const logInPage = (html) => {
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <form action="/admin" method="POST" style={{paddingTop: '40px'}}>
                     <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="userName">User Name</label>
-                        <input type="text" name="username" id="userName" className="form-control" required style={{border: "1px solid"}} />
+                        <label className="form-label" htmlFor="userName"><b>User Name</b></label>
+                        <input type="text" name="username" id="userName" className="form-control" required style={{border: "1px solid", backgroundColor: 'white'}} />
                     </div>
                     <div className="form-outline mb-4">
-                        <label className="form-label" htmlFor="passWord">Password</label>
-                        <input type="password" name="password" id="passWord" className="form-control" required style={{border: "1px solid"}} />
+                        <label className="form-label" htmlFor="passWord"><b>Password</b></label>
+                        <input type="password" name="password" id="passWord" className="form-control" required style={{border: "1px solid", backgroundColor: 'white'}} />
                     </div>
                         <button type="submit" className="btn btn-primary btn-block mb-4">Log in</button>
                 </form>

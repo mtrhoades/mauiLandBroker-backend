@@ -1,6 +1,17 @@
 const associations = require("express").Router(); 
 const Association = require('../models/Association'); // requiring models to use schema - Association
 
+// session authentication middleware function to protect routes
+function requireAuthentication(req, res, next) {
+    if (req.session.user) {
+        next(); // User is authenticated, continue
+    } else {
+        res.redirect('/admin'); // Redirect to the login page if not authenticated
+    }
+}
+
+associations.use(requireAuthentication);
+
 // Get all (read) associations
 associations.get('/', async (req, res) => {
     try {

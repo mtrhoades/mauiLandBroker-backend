@@ -3,6 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require("./models/connect");
 const methodOverride = require('method-override');
+const bcrypt = require('bcryptjs');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
+const User = require('./models/User.js');
 
 // configuration
 require('dotenv').config();
@@ -17,14 +23,16 @@ app.engine('jsx', require('express-react-views').createEngine());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-// login code and dependencies
-const User = require('./models/User.js');
-const bcrypt = require('bcryptjs');
-
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
+// session authentication middleware
+app.use(cookieParser());
+app.use(session({
+    secret: 'Heie73%$##ije*&JJdszza!3450',
+    resave: false,
+    saveUninitialized: true,
+}));
 
 // for adding a new user
 // const newUser = new User({
@@ -63,10 +71,17 @@ app.post('/admin', async (req, res) => {
             throw new Error('Invalid username or password');
         }
 
-        // Authentication successful
         // You can set a session or token to keep the user authenticated
+        req.session.user = user;
+        console.log(user);
 
+        // Authentication successful
         // res.status(200).json({ message: 'Login successful' });
+        
+        // controller routes here
+        app.use('/admin/associations', require('./controllers/associations'));
+        app.use('/admin/associations/files', require('./controllers/files'));
+
         res.redirect("/admin/associations");
     } catch (error) {
         // Handle errors and return appropriate responses
@@ -74,9 +89,18 @@ app.post('/admin', async (req, res) => {
     }
 });
 
-// controller routes here
-app.use('/admin/associations', require('./controllers/associations'));
-app.use('/admin/associations/files', require('./controllers/files'));
+// logout button functionality
+app.get('/logout', (req, res) => {
+    // Destroy the user's session
+    req.session.destroy((err) => {
+        if (err) {
+            // Handle any errors during session destruction
+            console.error('Error during logout:', err);
+        }
+        // Redirect to the login page or any other desired location
+        res.redirect('/admin');
+    });
+});
 
 // server listen
 const start = async () => {
