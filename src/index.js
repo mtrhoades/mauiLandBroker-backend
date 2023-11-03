@@ -3,12 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require("./models/connect");
 const methodOverride = require('method-override');
-const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const cookieParser = require('cookie-parser');
 
-const User = require('./models/User.js');
+// const User = require('./models/User.js');
 
 // configuration
 require('dotenv').config();
@@ -26,13 +24,21 @@ app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-// session authentication middleware
-app.use(cookieParser());
+// session auth middleware
 app.use(session({
-    secret: 'Heie73%$##ije*&JJdszza!3450',
+    secret: 'my-secret-key',
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: true }
 }));
+
+function requireAuth(req, res, next) {
+    if (req.session.userId) { // Assuming you use session for user authentication
+      return next(); // User is authenticated, proceed to the route
+    } else {
+      res.redirect('/admin'); // User is not authenticated, redirect to login page
+    }
+  }
 
 // for adding a new user
 // const newUser = new User({
@@ -41,66 +47,18 @@ app.use(session({
 // });
 // newUser.save();
 
-// root route (home page for login)
-app.get('/admin', (req, res) => {
-    res.render("logInPage");
+// root route 
+app.get('/', (req, res) => {
+    res.send("Root Route Home Page");
 });
 
-// Route to handle login form submission
-app.post('/admin', async (req, res) => {
-    const { username, password } = req.body;
-
-    try {
-        const user = await User.findOne({ username });
-
-        if (!user) {
-            throw new Error('Invalid username or password');
-        }
-
-        const isMatch = await new Promise((resolve, reject) => {
-            user.comparePassword(password, (passwordErr, match) => {
-                if (passwordErr || !match) {
-                    reject(new Error('Invalid username or password'));
-                } else {
-                    resolve(match);
-                }
-            });
-        });
-
-        if (!isMatch) {
-            throw new Error('Invalid username or password');
-        }
-
-        // You can set a session or token to keep the user authenticated
-        req.session.user = user;
-        console.log(user);
-
-        // Authentication successful
-        // res.status(200).json({ message: 'Login successful' });
-        
-        // controller routes here
-        app.use('/admin/associations', require('./controllers/associations'));
-        app.use('/admin/associations/files', require('./controllers/files'));
-
-        res.redirect("/admin/associations");
-    } catch (error) {
-        // Handle errors and return appropriate responses
-        res.status(401).json({ message: error.message });
-    }
-});
+// controller routes here
+app.use('/admin', require ('./controllers/authentication'));
+app.use('/admin/associations', requireAuth, require('./controllers/associations'));
+app.use('/admin/associations/files', requireAuth, require('./controllers/files'));
 
 // logout button functionality
-app.get('/logout', (req, res) => {
-    // Destroy the user's session
-    req.session.destroy((err) => {
-        if (err) {
-            // Handle any errors during session destruction
-            console.error('Error during logout:', err);
-        }
-        // Redirect to the login page or any other desired location
-        res.redirect('/admin');
-    });
-});
+
 
 // server listen
 const start = async () => {
