@@ -3,6 +3,7 @@ const Association = require('../models/Association'); // requiring models to use
 
 // Get all (read) associations
 associations.get('/', async (req, res) => {
+    console.log(req.session);
     try {
         const result = await Association.find();
         // res.json({"associations": result});

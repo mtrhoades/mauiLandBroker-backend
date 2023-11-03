@@ -5,6 +5,7 @@ const connectDB = require("./models/connect");
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 // const User = require('./models/User.js');
 
@@ -23,13 +24,15 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(cookieParser());
 
 // session auth middleware
+const oneHour = 1000 * 60 * 60; // creating 1 hour from miliseconds
 app.use(session({
-    secret: 'my-secret-key',
+    secret: 'Hkdkwu7356%$hhdHHS7@#78495mmmnfaat62!09',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { maxAge: oneHour }
 }));
 
 function requireAuth(req, res, next) {
@@ -58,7 +61,16 @@ app.use('/admin/associations', requireAuth, require('./controllers/associations'
 app.use('/admin/associations/files', requireAuth, require('./controllers/files'));
 
 // logout button functionality
-
+app.get('/logout', (req, res) => {
+    // Destroy the user session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+      // Redirect the user to the login page (you can replace this with any other desired page)
+      res.redirect('/admin');
+    });
+  });
 
 // server listen
 const start = async () => {

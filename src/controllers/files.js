@@ -20,6 +20,7 @@ files.get('/:id', async (req, res) => {
 
 // POST route for adding a file category
 files.post('/:id', async (req, res) => {
+    console.log(req.session);
     const associationId = req.params.id;
     const newCategory = {
         categoryname: '',

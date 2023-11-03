@@ -14,7 +14,7 @@ function DefaultHTML (html) {
                     <a className="nav-link active" href="/admin/associations">
                         <img className="logo" src="/images/MLBlogo.png" alt="Maui Land Broker logo"></img>
                     </a>
-                    <a href="/logout">Logout</a>
+                    <a href="/logout">Log Out</a>
                 </nav>
                 {html.children}
             </body>
