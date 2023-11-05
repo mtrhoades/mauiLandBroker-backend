@@ -43,15 +43,15 @@ associationSchema.pre('save', function(next) {
     });
 });
 
-// // bcrypt compare authentication
-// associationSchema.methods.comparePassword = function(candidatePassword, callback) {
-//     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-//         if (err) {
-//             return callback(err);
-//         }
-//         callback(null, isMatch);
-//     });
-// };
+// bcrypt compare authentication
+associationSchema.methods.comparePassword = function(candidatePassword, callback) {
+    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, isMatch);
+    });
+};
 
 
 module.exports = mongoose.model("Association", associationSchema);

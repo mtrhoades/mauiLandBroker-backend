@@ -15,9 +15,19 @@ associationslogins.post('/', async (req, res) => {
       }
   
       // Check if the provided username and password match the association's data
-      if (username === association.username && password === association.password) {
+      if (username === association.username) {
+        const isMatch = await new Promise((resolve, reject) => {
+            association.comparePassword(password, (passwordErr, match) => {
+                if (passwordErr || !match) {
+                    reject(new Error('Invalid password'));
+                } else {
+                    resolve(match);
+                    console.log(match); // true
+                }
+            });
+        })
+        console.log('Login Successful!!!')
         // Authentication successful
-        console.log('Login Successful!!!');
         return res.status(200).json({ message: 'Login successful', association });
       } else {
         // Authentication failed
