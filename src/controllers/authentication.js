@@ -9,13 +9,10 @@ logins.get('/', (req, res) => {
 // Route to handle login form submission
 logins.post('/', async (req, res) => {
     const { username, password } = req.body;
-    console.log(password); // password typed in login form
 
     try {
         const user = await User.findOne({ username });
         console.log(user); // user object
-        console.log(user.username); // user
-        console.log(user.password); // password - hashed
 
         if (!user) {
             throw new Error('Invalid username');
@@ -32,7 +29,6 @@ logins.post('/', async (req, res) => {
             });
         });
 
-        // You can set a session to keep the user authenticated
         req.session.userId = user._id; // Set session identifier to the user id from user object
         console.log(req.session);
         
@@ -44,6 +40,5 @@ logins.post('/', async (req, res) => {
         res.status(401).json({ message: error.message },);
     }
 });
-
 
 module.exports = logins;

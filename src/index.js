@@ -7,8 +7,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
-// const User = require('./models/User.js');
-
 // configuration
 require('dotenv').config();
 const PORT = process.env.PORT;
@@ -44,21 +42,38 @@ function requireAuth(req, res, next) {
   }
 
 // for adding a new user
+// const User = require('./models/User.js');
 // const newUser = new User({
-//     username: 'admin2',
-//     password: 'Bu55%aCak*s'
+//     username: 'admin',
+//     password: 'JrbfN6BDpJ'
 // });
 // newUser.save();
+
+// for adding new association
+// const Association = require('./models/Association.js');
+// const newAssociation = new Association(
+//   {
+//   name: "Wailuku Parkside",
+//   directory: 'wailukuparkside',
+//   username: "waipark",
+//   password: "wp456"
+// }
+// );
+// newAssociation.save();
 
 // root route 
 app.get('/', (req, res) => {
     res.send("Root Route Home Page");
 });
 
-// controller routes here
-app.use('/admin', require ('./controllers/authentication'));
+// admin controller routes here
+app.use('/admin', require ('./controllers/authentication')); // for admin login logic
 app.use('/admin/associations', requireAuth, require('./controllers/associations'));
 app.use('/admin/associations/files', requireAuth, require('./controllers/files'));
+
+// client side controller routes here
+app.use('/associationslist', require ('./controllers/clientSideControllers/associationslist'));
+app.use('/associationslogins', require ('./controllers/clientSideControllers/associationslogins'));
 
 // logout button functionality
 app.get('/logout', (req, res) => {
