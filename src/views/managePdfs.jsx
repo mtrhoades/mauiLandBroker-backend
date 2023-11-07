@@ -45,17 +45,13 @@ const managePdfs = ( { categoryObject, associationId, association } ) => {
                         <tr key={fileObject.id}>
                             <td>
                                 {fileObject.filename}
+                                <a href={`http://localhost:3001/${fileObject.filepath}`}>Click Here</a>
                             </td>
                             <td>
                                 <a href={`/admin/associations/files/${associationId}/categories/${categoryObject.id}/pdfs/${fileObject.id}`}>
                                     <button className="btn btn-warning">Edit File</button>
                                 </a>
                             </td>
-                            {/* <td>
-                                <a>
-                                    <button className='btn btn-danger'>Delete File</button>
-                                </a>
-                            </td> */}
                         </tr>
                         )
                     })

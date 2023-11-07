@@ -1,7 +1,21 @@
 const files = require("express").Router(); 
 const Association = require('../models/Association'); // requiring models to use schema - Association
 const multer = require('multer');
-const upload = multer({ dest: "pdfs" }); // middleware configuration to use multer and uploads files that are chosen to 'pdfs' folder.
+// const upload = multer({ dest: "pdfs" }); // middleware configuration to use multer and uploads files that are chosen to 'pdfs' folder.
+//Configuration for Multer
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "pdfs");
+    },
+    filename: (req, file, cb) => {
+      const ext = file.mimetype.split("/")[1];
+      cb(null, `${file.originalname}.${ext}`);
+    },
+  });
+
+const upload = multer({
+    storage: multerStorage
+});
 
 // GET A SINGLE association route to view ALL file categories for that association
 files.get('/:id', async (req, res) => {
@@ -149,7 +163,7 @@ files.post('/:id/categories/:catid/pdfs', upload.single('filename'), async (req,
             {arrayFilters: [{'category._id': categoryId}]},
             {new: true}
         );
-        // console.log(result);
+        console.log(req.file);
         res.redirect(req.get('referer'));
     } catch (error) {
         res.status(500).json({error: error.message});

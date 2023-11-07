@@ -23,6 +23,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(cookieParser());
+app.use("/pdfs", express.static("pdfs"));
+
 
 // session auth middleware
 const oneHour = 1000 * 60 * 60; // creating 1 hour from miliseconds
